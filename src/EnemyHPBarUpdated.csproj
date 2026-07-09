@@ -17,11 +17,11 @@
 		<Deterministic>True</Deterministic>
 		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<PathMap>$([System.IO.Path]::GetFullPath('$(SolutionDir)'))=./</PathMap>
-	</PropertyGroup>
+		</PropertyGroup>
 
 	<PropertyGroup>
-		<HKRefs Condition="$(HKRefs) == ''">$(SolutionDir)/Libs</HKRefs>
+		<SolutionDir Condition="'$(SolutionDir)' == ''">$(MSBuildProjectDirectory)\..</SolutionDir>
+		<HKRefs Condition="$(HKRefs) == ''">$(SolutionDir)\Libs</HKRefs>
 		<HKModdingApi Condition="$(HKModdingApi) == ''">$(HKRefs)</HKModdingApi>
 		<HKModRefs Condition="$(HKModRefs) == ''">$(HKRefs)</HKModRefs>
 		<HKModOutputPath Condition="$(HKModOutputPath) == ''">$(HKModRefs)</HKModOutputPath>
