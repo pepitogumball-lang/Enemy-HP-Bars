@@ -34,7 +34,7 @@ public class AnimJson {
 		animDict["bossfg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBarUpdated.HPBAR_BOSSFG));
 		animDict["bossbg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBarUpdated.HPBAR_BOSSBG));
 		animDict["bossol"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBarUpdated.HPBAR_BOSSOL));
-37			animDict["bossmg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBarUpdated.HPBAR_BOSSMG));
+		animDict["bossmg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBarUpdated.HPBAR_BOSSMG));
 	}
 	public static void LoadAllConfig() {
 		foreach (string key in animDict.Keys) {

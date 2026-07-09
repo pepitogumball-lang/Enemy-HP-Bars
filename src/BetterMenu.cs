@@ -26,7 +26,7 @@ internal static class BetterMenu {
 		EnemyHPBarUpdated.bossol = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetBossOutlineImage());
 		EnemyHPBarUpdated.bossbg = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetBossBackgroundImage());
 		EnemyHPBarUpdated.bossfg = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetBossForegroundImage());
-29			EnemyHPBarUpdated.bossmg = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetBossMiddlegroundImage());
+		EnemyHPBarUpdated.bossmg = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetBossMiddlegroundImage());
 		EnemyHPBarUpdated.ol = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetOutlineImage());
 		EnemyHPBarUpdated.fg = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetForegroundImage());
 		EnemyHPBarUpdated.mg = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetMiddlegroundImage());
