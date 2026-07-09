@@ -21,9 +21,9 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<HKRefs Condition="$(HKRefs) == ''">D:/Steamself/steamapps/common/Hollow Knight/hollow_knight_Data/Managed</HKRefs>
+		<HKRefs Condition="$(HKRefs) == ''">$(SolutionDir)/Libs</HKRefs>
 		<HKModdingApi Condition="$(HKModdingApi) == ''">$(HKRefs)</HKModdingApi>
-		<HKModRefs Condition="$(HKModRefs) == ''">$(HKRefs)/Mods</HKModRefs>
+		<HKModRefs Condition="$(HKModRefs) == ''">$(HKRefs)</HKModRefs>
 		<HKModOutputPath Condition="$(HKModOutputPath) == ''">$(HKModRefs)</HKModOutputPath>
 	</PropertyGroup>
 
@@ -71,12 +71,12 @@
 		<Reference Include="Newtonsoft.Json">
 			<HintPath>$(HKModdingApi)/Newtonsoft.Json.dll</HintPath>
 		</Reference>
-<Reference Include="CustomKnight">
-				<HintPath>$(HKModRefs)/CustomKnight.dll</HintPath>
-			</Reference>
-			<Reference Include="Satchel">
-				<HintPath>$(HKModRefs)/Satchel.dll</HintPath>
-			</Reference>
+		<Reference Include="CustomKnight">
+			<HintPath>$(HKModRefs)/CustomKnight.dll</HintPath>
+		</Reference>
+		<Reference Include="Satchel">
+			<HintPath>$(HKModRefs)/Satchel.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<Target Name="CopyMod" AfterTargets="PostBuildEvent">
