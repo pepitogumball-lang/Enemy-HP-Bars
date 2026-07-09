@@ -1,6 +1,6 @@
 ﻿namespace EnemyHPBarUpdated;
 
-[ModExportName(nameof(EnemyHPBar))]
+[ModExportName(nameof(EnemyHPBarUpdated))]
 public static class EnemyHPBarExport {
 	public static void DisableHPBar(GameObject go) {
 		if (go.GetComponent<HPBar>() is HPBar hpBar) {

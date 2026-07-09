@@ -41,7 +41,6 @@ public static Sprite bossbg;
 	public MenuScreen GetMenuScreen(MenuScreen modListMenu, ModToggleDelegates? toggle) => BetterMenu.GetMenu(modListMenu, toggle);
 
 	public override string GetVersion() => Version.Value;
-		public override string GetName() => "EnemyHPBarUpdated";
 
 public EnemyHPBarUpdated() =>
 			typeof(EnemyHPBarExport).ModInterop();

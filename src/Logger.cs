@@ -3,7 +3,7 @@
 namespace EnemyHPBarUpdated;
 
 internal static class Logger {
-	private const string prefix = $"[{nameof(EnemyHPBar)}] - ";
+	private const string prefix = $"[{nameof(EnemyHPBarUpdated)}] - ";
 
 	internal static void LogFine(string message) => L.LogFine(prefix + message);
 
