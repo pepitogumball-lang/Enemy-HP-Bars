@@ -19,10 +19,11 @@ public class EnemyHPBar : Mod, IGlobalSettings<Settings>, ICustomMenuMod, IToggl
 	public const string HPBAR_BG = "bg.png";
 	public const string HPBAR_FG = "fg.png";
 	public const string HPBAR_MG = "mg.png";
-	public const string HPBAR_OL = "ol.png";
-	public const string HPBAR_BOSSOL = "bossol.png";
-	public const string HPBAR_BOSSFG = "bossfg.png";
-	public const string HPBAR_BOSSBG = "bossbg.png";
+public const string HPBAR_OL = "ol.png";
+		public const string HPBAR_BOSSOL = "bossol.png";
+		public const string HPBAR_BOSSFG = "bossfg.png";
+		public const string HPBAR_BOSSMG = "bossmg.png";
+		public const string HPBAR_BOSSBG = "bossbg.png";
 	public const string SPRITE_FOLDER = "CustomHPBar";
 
 	public static readonly string DATA_DIR = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), SPRITE_FOLDER);
@@ -32,9 +33,10 @@ public class EnemyHPBar : Mod, IGlobalSettings<Settings>, ICustomMenuMod, IToggl
 	public static Sprite mg;
 	public static Sprite fg;
 	public static Sprite ol;
-	public static Sprite bossbg;
-	public static Sprite bossfg;
-	public static Sprite bossol;
+public static Sprite bossbg;
+		public static Sprite bossfg;
+		public static Sprite bossmg;
+		public static Sprite bossol;
 	public bool ToggleButtonInsideMenu { get; } = true;
 	public MenuScreen GetMenuScreen(MenuScreen modListMenu, ModToggleDelegates? toggle) => BetterMenu.GetMenu(modListMenu, toggle);
 
@@ -67,9 +69,10 @@ public class EnemyHPBar : Mod, IGlobalSettings<Settings>, ICustomMenuMod, IToggl
 		canvas.GetComponent<Canvas>().sortingOrder = 1;
 		bossCanvas.GetComponent<Canvas>().sortingOrder = 1;
 
-		bossol = HPBarCreateSprite(ResourceLoader.GetBossOutlineImage());
-		bossbg = HPBarCreateSprite(ResourceLoader.GetBossBackgroundImage());
-		bossfg = HPBarCreateSprite(ResourceLoader.GetBossForegroundImage());
+bossol = HPBarCreateSprite(ResourceLoader.GetBossOutlineImage());
+			bossbg = HPBarCreateSprite(ResourceLoader.GetBossBackgroundImage());
+			bossfg = HPBarCreateSprite(ResourceLoader.GetBossForegroundImage());
+			bossmg = HPBarCreateSprite(ResourceLoader.GetBossMiddlegroundImage());
 		ol = HPBarCreateSprite(ResourceLoader.GetOutlineImage());
 		fg = HPBarCreateSprite(ResourceLoader.GetForegroundImage());
 		mg = HPBarCreateSprite(ResourceLoader.GetMiddlegroundImage());
@@ -93,9 +96,10 @@ public class EnemyHPBar : Mod, IGlobalSettings<Settings>, ICustomMenuMod, IToggl
 		if (Directory.Exists(Path.Combine(SkinManager.GetCurrentSkin().getSwapperPath(), "HPBar"))) {
 			if (globalSettings.Intergration) {
 				EnemyHPBar.CompleteImage(Path.Combine(SkinManager.GetCurrentSkin().getSwapperPath(), "HPBar"));
-				bossol = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_BOSSOL));
-				bossbg = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_BOSSBG));
-				bossfg = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_BOSSFG));
+bossol = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_BOSSOL));
+					bossbg = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_BOSSBG));
+					bossfg = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_BOSSFG));
+					bossmg = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_BOSSMG));
 				ol = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_OL));
 				fg = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_FG));
 				mg = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_MG));

@@ -2,20 +2,25 @@ namespace EnemyHPBar;
 
 public class BossHPBar : MonoBehaviour {
 	private GameObject bg_go;
+	private GameObject mg_go;
 	private GameObject fg_go;
 	private GameObject ol_go;
 	private CanvasRenderer bg_cr;
+	private CanvasRenderer mg_cr;
 	private CanvasRenderer fg_cr;
 	private CanvasRenderer ol_cr;
 
 	private readonly float bossbgScale = EnemyHPBar.globalSettings.bossbgScale;
+	private readonly float bossmgScale = EnemyHPBar.globalSettings.bossmgScale;
 	private readonly float bossfgScale = EnemyHPBar.globalSettings.bossfgScale;
 	private readonly float bossolScale = EnemyHPBar.globalSettings.bossolScale;
 
 	private const float scaleFactor = 2f / 3f;
 
 	public Image health_bar;
+	public Image hpbg;
 
+	public float currHP;
 	public float maxHP;
 
 	public int position;
@@ -28,16 +33,24 @@ public class BossHPBar : MonoBehaviour {
 
 		bg_go = CanvasUtil.CreateImagePanel(EnemyHPBar.bossCanvas, EnemyHPBar.bossbg, new CanvasUtil.RectData(
 			EnemyHPBar.bossbg.rect.size * bossbgScale * scaleFactor, new Vector2(0f, 24f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f)));
+		mg_go = CanvasUtil.CreateImagePanel(EnemyHPBar.bossCanvas, EnemyHPBar.bossmg, new CanvasUtil.RectData(
+			EnemyHPBar.bossmg.rect.size * bossmgScale * scaleFactor, new Vector2(0f, 24f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f)));
 		fg_go = CanvasUtil.CreateImagePanel(EnemyHPBar.bossCanvas, EnemyHPBar.bossfg, new CanvasUtil.RectData(
 			EnemyHPBar.bossfg.rect.size * bossfgScale * scaleFactor, new Vector2(0f, 24f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f)));
 		ol_go = CanvasUtil.CreateImagePanel(EnemyHPBar.bossCanvas, EnemyHPBar.bossol, new CanvasUtil.RectData(
 			EnemyHPBar.bossol.rect.size * bossolScale * scaleFactor, new Vector2(0f, 24f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f)));
 
 		bg_cr = bg_go.GetComponent<CanvasRenderer>();
+		mg_cr = mg_go.GetComponent<CanvasRenderer>();
 		fg_cr = fg_go.GetComponent<CanvasRenderer>();
 		ol_cr = ol_go.GetComponent<CanvasRenderer>();
 
 		objectPos = fg_go.transform.position;
+
+		hpbg = mg_go.GetComponent<Image>();
+		hpbg.type = Image.Type.Filled;
+		hpbg.fillMethod = Image.FillMethod.Horizontal;
+		hpbg.preserveAspect = false;
 
 		health_bar = fg_go.GetComponent<Image>();
 		health_bar.type = Image.Type.Filled;
@@ -52,8 +65,14 @@ public class BossHPBar : MonoBehaviour {
 		SetHPBarAlpha(0);
 
 		maxHP = hm.hp;
+		currHP = hm.hp;
+
 		if (AnimJson.AnimExists("bossbg")) {
 			bg_go.GetAddComponent<HPBarAnimationController>().Init(AnimJson.animDict["bossbg"]);
+		}
+
+		if (AnimJson.AnimExists("bossmg")) {
+			mg_go.GetAddComponent<HPBarAnimationController>().Init(AnimJson.animDict["bossmg"]);
 		}
 
 		if (AnimJson.AnimExists("bossfg")) {
@@ -73,19 +92,23 @@ public class BossHPBar : MonoBehaviour {
 		}
 
 		bg_cr.SetAlpha(alpha);
+		mg_cr.SetAlpha(alpha);
 		fg_cr.SetAlpha(alpha);
 		ol_cr.SetAlpha(alpha);
 	}
 
 	private void DestroyHPBar() {
 		Destroy(fg_go);
+		Destroy(mg_go);
 		Destroy(bg_go);
 		Destroy(ol_go);
+		Destroy(hpbg);
 		Destroy(health_bar);
 	}
 
 	private void MoveHPBar(Vector2 position) {
 		fg_go.transform.position = position;
+		mg_go.transform.position = position;
 		bg_go.transform.position = position;
 		ol_go.transform.position = position;
 	}
@@ -106,9 +129,18 @@ public class BossHPBar : MonoBehaviour {
 	private void FixedUpdate() {
 		position = EnemyHPBar.ActiveBosses.IndexOf(gameObject) + 1;
 		maxHP = Math.Max(maxHP, hm.hp);
+		
+		if (currHP > hm.hp) {
+			currHP -= 1f;
+		} else {
+			currHP = hm.hp;
+		}
+
 		Logger.LogFine($@"Enemy {name}: currHP {hm.hp}, maxHP {maxHP}");
 
 		health_bar.fillAmount = hm.hp / maxHP;
+		hpbg.fillAmount = currHP / maxHP;
+
 		if (health_bar.fillAmount < 1f && health_bar.fillAmount > 0f) {
 			float alpha = GameManager.instance.gameState == GameState.PAUSED ? 0.5f : 1;
 			SetHPBarAlpha(alpha);

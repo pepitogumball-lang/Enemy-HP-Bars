@@ -35,4 +35,6 @@ internal static class ResourceLoader {
 	public static byte[] GetBossForegroundImage() => GetImage(EnemyHPBar.HPBAR_BOSSFG);
 
 	public static byte[] GetBossOutlineImage() => GetImage(EnemyHPBar.HPBAR_BOSSOL);
+14	
+15		public static byte[] GetBossMiddlegroundImage() => GetImage(EnemyHPBar.HPBAR_BOSSMG);
 }
