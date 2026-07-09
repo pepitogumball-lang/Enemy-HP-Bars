@@ -1,0 +1,71 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Download References
+      shell: pwsh
+      run: |
+        mkdir References
+        cd References
+        $files = @(
+          "https://github.com/TheMulhima/HKMirror/releases/download/v1.5.78.11833/Assembly-CSharp.dll",
+          "https://github.com/TheMulhima/HKMirror/releases/download/v1.5.78.11833/UnityEngine.dll",
+          "https://github.com/TheMulhima/HKMirror/releases/download/v1.5.78.11833/UnityEngine.CoreModule.dll",
+          "https://github.com/TheMulhima/HKMirror/releases/download/v1.5.78.11833/UnityEngine.UI.dll",
+          "https://github.com/TheMulhima/HKMirror/releases/download/v1.5.78.11833/UnityEngine.UIModule.dll",
+          "https://github.com/TheMulhima/HKMirror/releases/download/v1.5.78.11833/UnityEngine.ImageConversionModule.dll",
+          "https://github.com/TheMulhima/HKMirror/releases/download/v1.5.78.11833/PlayMaker.dll",
+          "https://github.com/TheMulhima/HKMirror/releases/download/v1.5.78.11833/MonoMod.Utils.dll",
+          "https://github.com/TheMulhima/HKMirror/releases/download/v1.5.78.11833/Newtonsoft.Json.dll"
+        )
+        foreach ($file in $files) {
+          Invoke-WebRequest -Uri $file -OutFile (Split-Path $file -Leaf)
+        }
+        
+        # Download Satchel and CustomKnight (approximate URLs, might need adjustment)
+        # Note: These are often needed as dependencies
+        Invoke-WebRequest -Uri "https://github.com/PrashantMohta/Satchel/releases/latest/download/Satchel.dll" -OutFile "Satchel.dll"
+        Invoke-WebRequest -Uri "https://github.com/PrashantMohta/HollowKnight.CustomKnight/releases/latest/download/CustomKnight.dll" -OutFile "CustomKnight.dll"
+        
+        # MMHOOK_PlayMaker is also common
+        Invoke-WebRequest -Uri "https://github.com/TheMulhima/HKMirror/releases/download/v1.5.78.11833/MMHOOK_PlayMaker.dll" -OutFile "MMHOOK_PlayMaker.dll"
+
+    - name: Build
+      run: msbuild src/EnemyHPBarUpdated.csproj /p:Configuration=Release /p:HKRefs=../References /p:HKModdingApi=../References /p:HKModRefs=../References
+
+    - name: Prepare Release
+      shell: pwsh
+      run: |
+        mkdir dist
+        copy src/bin/Release/EnemyHPBarUpdated.dll dist/
+        copy README.md dist/
+        copy LICENSE dist/
+        Compress-Archive -Path dist/* -DestinationPath EnemyHPBarUpdated.zip
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: EnemyHPBarUpdated.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

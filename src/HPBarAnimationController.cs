@@ -1,4 +1,4 @@
-namespace EnemyHPBar;
+namespace EnemyHPBarUpdated;
 
 public class HPBarAnimation {
 	public float fps;

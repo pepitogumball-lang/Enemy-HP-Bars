@@ -1,6 +1,6 @@
 // ReSharper disable InconsistentNaming
 
-namespace EnemyHPBar;
+namespace EnemyHPBarUpdated;
 
 public class HPBar : MonoBehaviour {
 	private GameObject bg_go;
@@ -12,10 +12,10 @@ public class HPBar : MonoBehaviour {
 	private CanvasRenderer mg_cr;
 	private CanvasRenderer ol_cr;
 
-	private readonly float bgScale = EnemyHPBar.globalSettings.bgScale;
-	private readonly float fgScale = EnemyHPBar.globalSettings.fgScale;
-	private readonly float olScale = EnemyHPBar.globalSettings.olScale;
-	private readonly float mgScale = EnemyHPBar.globalSettings.mgScale;
+	private readonly float bgScale = EnemyHPBarUpdated.globalSettings.bgScale;
+	private readonly float fgScale = EnemyHPBarUpdated.globalSettings.fgScale;
+	private readonly float olScale = EnemyHPBarUpdated.globalSettings.olScale;
+	private readonly float mgScale = EnemyHPBarUpdated.globalSettings.mgScale;
 
 	private const float scaleFactor = 5f / 333f;
 
@@ -36,14 +36,14 @@ public class HPBar : MonoBehaviour {
 
 		// On.CameraController.FadeOut += CameraController_FadeOut;
 
-		bg_go = CanvasUtil.CreateImagePanel(EnemyHPBar.canvas, EnemyHPBar.bg,
-			new CanvasUtil.RectData(EnemyHPBar.bg.rect.size * bgScale * scaleFactor, new Vector2(0, 32)));
-		mg_go = CanvasUtil.CreateImagePanel(EnemyHPBar.canvas, EnemyHPBar.mg,
-			new CanvasUtil.RectData(EnemyHPBar.mg.rect.size * mgScale * scaleFactor, new Vector2(0, 32)));
-		fg_go = CanvasUtil.CreateImagePanel(EnemyHPBar.canvas, EnemyHPBar.fg,
-			new CanvasUtil.RectData(EnemyHPBar.fg.rect.size * fgScale * scaleFactor, new Vector2(0, 32)));
-		ol_go = CanvasUtil.CreateImagePanel(EnemyHPBar.canvas, EnemyHPBar.ol,
-			new CanvasUtil.RectData(EnemyHPBar.ol.rect.size * olScale * scaleFactor, new Vector2(0, 32)));
+		bg_go = CanvasUtil.CreateImagePanel(EnemyHPBarUpdated.canvas, EnemyHPBarUpdated.bg,
+			new CanvasUtil.RectData(EnemyHPBarUpdated.bg.rect.size * bgScale * scaleFactor, new Vector2(0, 32)));
+		mg_go = CanvasUtil.CreateImagePanel(EnemyHPBarUpdated.canvas, EnemyHPBarUpdated.mg,
+			new CanvasUtil.RectData(EnemyHPBarUpdated.mg.rect.size * mgScale * scaleFactor, new Vector2(0, 32)));
+		fg_go = CanvasUtil.CreateImagePanel(EnemyHPBarUpdated.canvas, EnemyHPBarUpdated.fg,
+			new CanvasUtil.RectData(EnemyHPBarUpdated.fg.rect.size * fgScale * scaleFactor, new Vector2(0, 32)));
+		ol_go = CanvasUtil.CreateImagePanel(EnemyHPBarUpdated.canvas, EnemyHPBarUpdated.ol,
+			new CanvasUtil.RectData(EnemyHPBarUpdated.ol.rect.size * olScale * scaleFactor, new Vector2(0, 32)));
 
 		bg_cr = bg_go.GetComponent<CanvasRenderer>();
 		fg_cr = fg_go.GetComponent<CanvasRenderer>();

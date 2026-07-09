@@ -1,4 +1,4 @@
-﻿namespace EnemyHPBar;
+﻿namespace EnemyHPBarUpdated;
 
 internal sealed class DisableHPBar : MonoBehaviour {
 }

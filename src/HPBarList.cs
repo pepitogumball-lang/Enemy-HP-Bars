@@ -1,6 +1,6 @@
 ﻿using MenuButton = Satchel.BetterMenus.MenuButton;
 
-namespace EnemyHPBar;
+namespace EnemyHPBarUpdated;
 
 public interface ISelectableSkin {
 	/// <summary>
@@ -29,7 +29,7 @@ internal class HPBarList : ISelectableSkin {
 			new TextPanel("Select the Skin to Apply",Id:"helptext"),
 			new TextPanel("Applying skin...",Id:"applying"){isVisible=false}
 		});
-		for (int i = 0; i < EnemyHPBar.SkinList.Count; i++) {
+		for (int i = 0; i < EnemyHPBarUpdated.SkinList.Count; i++) {
 			menu.AddElement(ApplySkinButton(i));
 		}
 
@@ -38,7 +38,7 @@ internal class HPBarList : ISelectableSkin {
 	internal static string MaxLength(string skinName, int length) => skinName.Length <= length ? skinName : skinName.Substring(0, length - 3) + "...";
 	internal static MenuButton ApplySkinButton(int index) {
 
-		string ButtonText = MaxLength(EnemyHPBar.SkinList[index].GetName(), EnemyHPBar.globalSettings.NameLength);
+		string ButtonText = MaxLength(EnemyHPBarUpdated.SkinList[index].GetName(), EnemyHPBarUpdated.globalSettings.NameLength);
 		return new MenuButton(ButtonText, "", (mb) => {
 			if (!applying) {
 				applying = true;
@@ -46,12 +46,12 @@ internal class HPBarList : ISelectableSkin {
 				BetterMenu.selectedSkin = index;
 				_ = GameManager.instance.StartCoroutine(applyAndGoBack());
 			}
-		}, Id: $"skinbutton{EnemyHPBar.SkinList[index].GetId()}");
+		}, Id: $"skinbutton{EnemyHPBarUpdated.SkinList[index].GetId()}");
 
 	}
 	private static void setSkinButtonVisibility(bool isVisible) {
-		for (int i = 0; i < EnemyHPBar.SkinList.Count; i++) {
-			Element btn = MenuRef?.Find($"skinbutton{EnemyHPBar.SkinList[i].GetId()}");
+		for (int i = 0; i < EnemyHPBarUpdated.SkinList.Count; i++) {
+			Element btn = MenuRef?.Find($"skinbutton{EnemyHPBarUpdated.SkinList[i].GetId()}");
 			if (btn != null) {
 				btn.isVisible = isVisible;
 			}

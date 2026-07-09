@@ -1,4 +1,4 @@
-namespace EnemyHPBar;
+namespace EnemyHPBarUpdated;
 
 public sealed class Settings {
 	public float fgScale = 1.0f;

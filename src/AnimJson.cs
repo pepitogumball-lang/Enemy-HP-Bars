@@ -1,11 +1,11 @@
 using Newtonsoft.Json;
-namespace EnemyHPBar;
+namespace EnemyHPBarUpdated;
 
 public class AnimJson {
 	public static string FilterExtension(string name) => name.Replace(".png", "");
 
 	public static void SaveAnimConfig(HPBarAnimation anim, string name) {
-		var fs = new FileStream(Path.Combine(EnemyHPBar.SkinPath, name + ".json"), FileMode.Create, FileAccess.Write);
+		var fs = new FileStream(Path.Combine(EnemyHPBarUpdated.SkinPath, name + ".json"), FileMode.Create, FileAccess.Write);
 		var fw = new StreamWriter(fs);
 		fw.Write(JsonConvert.SerializeObject(anim));
 		fw.Close();
@@ -24,22 +24,22 @@ public class AnimJson {
 		return anim;
 
 	}
-	public static bool ConfigExist(HPBarAnimation anim, string name) => File.Exists(Path.Combine(EnemyHPBar.SkinPath, name + ".json"));
+	public static bool ConfigExist(HPBarAnimation anim, string name) => File.Exists(Path.Combine(EnemyHPBarUpdated.SkinPath, name + ".json"));
 
 	public static void Initdic() {
-		animDict["ol"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBar.HPBAR_OL));
-		animDict["fg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBar.HPBAR_FG));
-		animDict["bg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBar.HPBAR_BG));
-		animDict["mg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBar.HPBAR_MG));
-		animDict["bossfg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBar.HPBAR_BOSSFG));
-		animDict["bossbg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBar.HPBAR_BOSSBG));
-		animDict["bossol"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBar.HPBAR_BOSSOL));
-37			animDict["bossmg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBar.HPBAR_BOSSMG));
+		animDict["ol"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBarUpdated.HPBAR_OL));
+		animDict["fg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBarUpdated.HPBAR_FG));
+		animDict["bg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBarUpdated.HPBAR_BG));
+		animDict["mg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBarUpdated.HPBAR_MG));
+		animDict["bossfg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBarUpdated.HPBAR_BOSSFG));
+		animDict["bossbg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBarUpdated.HPBAR_BOSSBG));
+		animDict["bossol"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBarUpdated.HPBAR_BOSSOL));
+37			animDict["bossmg"] = CustomHPBarAnimation.LoadAnimation(ResourceLoader.GetAllImages(EnemyHPBarUpdated.HPBAR_BOSSMG));
 	}
 	public static void LoadAllConfig() {
 		foreach (string key in animDict.Keys) {
 			if (ConfigExist(animDict[key], key)) {
-				HPBarAnimation configanim = LoadAnimConfig(Path.Combine(EnemyHPBar.SkinPath, key + ".json"));
+				HPBarAnimation configanim = LoadAnimConfig(Path.Combine(EnemyHPBarUpdated.SkinPath, key + ".json"));
 				animDict[key].loop = configanim.loop;
 				animDict[key].fps = configanim.fps;
 			}

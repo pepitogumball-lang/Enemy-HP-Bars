@@ -1,6 +1,6 @@
 ﻿using L = Modding.Logger;
 
-namespace EnemyHPBar;
+namespace EnemyHPBarUpdated;
 
 internal static class Logger {
 	private const string prefix = $"[{nameof(EnemyHPBar)}] - ";

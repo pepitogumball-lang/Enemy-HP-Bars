@@ -1,7 +1,7 @@
 using CustomKnight;
-namespace EnemyHPBar;
+namespace EnemyHPBarUpdated;
 
-public class EnemyHPBar : Mod, IGlobalSettings<Settings>, ICustomMenuMod, ITogglableMod {
+public class EnemyHPBarUpdated : Mod, IGlobalSettings<Settings>, ICustomMenuMod, ITogglableMod {
 	private static readonly Lazy<string> Version = new(() => Assembly
 		.GetExecutingAssembly()
 		.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
@@ -27,7 +27,7 @@ public const string HPBAR_OL = "ol.png";
 	public const string SPRITE_FOLDER = "CustomHPBar";
 
 	public static readonly string DATA_DIR = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), SPRITE_FOLDER);
-	public static string SkinPath => InstallCK && globalSettings.Intergration ? GetCKPath() : Path.Combine(EnemyHPBar.DATA_DIR, EnemyHPBar.CurrentSkin.GetId());
+	public static string SkinPath => InstallCK && globalSettings.Intergration ? GetCKPath() : Path.Combine(EnemyHPBarUpdated.DATA_DIR, EnemyHPBarUpdated.CurrentSkin.GetId());
 
 	public static Sprite bg;
 	public static Sprite mg;
@@ -41,9 +41,10 @@ public static Sprite bossbg;
 	public MenuScreen GetMenuScreen(MenuScreen modListMenu, ModToggleDelegates? toggle) => BetterMenu.GetMenu(modListMenu, toggle);
 
 	public override string GetVersion() => Version.Value;
+		public override string GetName() => "EnemyHPBarUpdated";
 
-	public EnemyHPBar() =>
-		typeof(EnemyHPBarExport).ModInterop();
+public EnemyHPBarUpdated() =>
+			typeof(EnemyHPBarExport).ModInterop();
 
 	public override void Initialize() {
 
@@ -95,7 +96,7 @@ bossol = HPBarCreateSprite(ResourceLoader.GetBossOutlineImage());
 	private void ChangeSkin(object sender, EventArgs e) {
 		if (Directory.Exists(Path.Combine(SkinManager.GetCurrentSkin().getSwapperPath(), "HPBar"))) {
 			if (globalSettings.Intergration) {
-				EnemyHPBar.CompleteImage(Path.Combine(SkinManager.GetCurrentSkin().getSwapperPath(), "HPBar"));
+				EnemyHPBarUpdated.CompleteImage(Path.Combine(SkinManager.GetCurrentSkin().getSwapperPath(), "HPBar"));
 bossol = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_BOSSOL));
 					bossbg = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_BOSSBG));
 					bossfg = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_BOSSFG));
@@ -113,14 +114,14 @@ bossol = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_BOSSOL));
 	}
 	public static string GetCKPath() => Directory.Exists(Path.Combine(SkinManager.GetCurrentSkin().getSwapperPath(), "HPBar"))
 			? Path.Combine(SkinManager.GetCurrentSkin().getSwapperPath(), "HPBar")
-			: Path.Combine(EnemyHPBar.DATA_DIR, EnemyHPBar.CurrentSkin.GetId());
+			: Path.Combine(EnemyHPBarUpdated.DATA_DIR, EnemyHPBarUpdated.CurrentSkin.GetId());
 
 	public static Settings globalSettings = new();
 
 	public void OnLoadGlobal(Settings s) => globalSettings = s;
 
 	public Settings OnSaveGlobal() {
-		globalSettings.CurrentSkin = EnemyHPBar.CurrentSkin.GetId();
+		globalSettings.CurrentSkin = EnemyHPBarUpdated.CurrentSkin.GetId();
 		return globalSettings;
 	}
 
@@ -268,13 +269,13 @@ bossol = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_BOSSOL));
 			SkinList.Add(new HPBarList(directoryname));
 		}
 
-		EnemyHPBar.CurrentSkin = BetterMenu.GetSkinById(EnemyHPBar.globalSettings.CurrentSkin);
+		EnemyHPBarUpdated.CurrentSkin = BetterMenu.GetSkinById(EnemyHPBarUpdated.globalSettings.CurrentSkin);
 		Logger.Log("Loaded Skins list");
 	}
 
 	public static void CompleteImage(string skinpath) {
 		foreach (string res in Assembly.GetExecutingAssembly().GetManifestResourceNames().Where(t => t.EndsWith("png"))) {
-			string properRes = res.Replace("EnemyHPBar.Resources.", "");
+			string properRes = res.Replace("EnemyHPBarUpdated.Resources.", "");
 			string resPath = Path.Combine(skinpath, properRes);
 			if (File.Exists(resPath)) {
 				continue;
@@ -291,7 +292,7 @@ bossol = HPBarCreateSprite(ResourceLoader.GetCKImage(HPBAR_BOSSOL));
 		ModHooks.OnReceiveDeathEventHook -= Instance_OnReceiveDeathEventHook;
 		UnityEngine.SceneManagement.SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
 		On.PlayMakerFSM.Start -= ModifyFSM;
-		globalSettings.CurrentSkin = EnemyHPBar.CurrentSkin.GetId();
+		globalSettings.CurrentSkin = EnemyHPBarUpdated.CurrentSkin.GetId();
 		foreach (GameObject go in UObject.FindObjectsOfType<GameObject>()) {
 			if (go.GetComponent<HPBar>() is HPBar hpBar) {
 				UObject.Destroy(hpBar);

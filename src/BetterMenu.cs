@@ -1,6 +1,6 @@
 using MenuButton = Satchel.BetterMenus.MenuButton;
 
-namespace EnemyHPBar;
+namespace EnemyHPBarUpdated;
 
 // Thanks to CustomKnight menu: https://github.com/PrashantMohta/HollowKnight.CustomKnight/blob/moreskin/CustomKnight/Menu/BetterMenu.cs
 internal static class BetterMenu {
@@ -11,8 +11,8 @@ internal static class BetterMenu {
 		MenuRef ??= PrepareMenu((ModToggleDelegates) toggleDelegates);
 
 		MenuRef.OnBuilt += (_, Element) => {
-			if (EnemyHPBar.CurrentSkin != null) {
-				BetterMenu.SelectedSkin(EnemyHPBar.CurrentSkin.GetId());
+			if (EnemyHPBarUpdated.CurrentSkin != null) {
+				BetterMenu.SelectedSkin(EnemyHPBarUpdated.CurrentSkin.GetId());
 			}
 		};
 
@@ -20,24 +20,24 @@ internal static class BetterMenu {
 	}
 
 	internal static void ApplySkin() {
-		ISelectableSkin skinToApply = EnemyHPBar.SkinList[selectedSkin];
+		ISelectableSkin skinToApply = EnemyHPBarUpdated.SkinList[selectedSkin];
 		BetterMenu.SetSkinById(skinToApply.GetId());
-		EnemyHPBar.CompleteImage(Path.Combine(EnemyHPBar.DATA_DIR, EnemyHPBar.CurrentSkin.GetId()));
-		EnemyHPBar.bossol = EnemyHPBar.HPBarCreateSprite(ResourceLoader.GetBossOutlineImage());
-		EnemyHPBar.bossbg = EnemyHPBar.HPBarCreateSprite(ResourceLoader.GetBossBackgroundImage());
-		EnemyHPBar.bossfg = EnemyHPBar.HPBarCreateSprite(ResourceLoader.GetBossForegroundImage());
-29			EnemyHPBar.bossmg = EnemyHPBar.HPBarCreateSprite(ResourceLoader.GetBossMiddlegroundImage());
-		EnemyHPBar.ol = EnemyHPBar.HPBarCreateSprite(ResourceLoader.GetOutlineImage());
-		EnemyHPBar.fg = EnemyHPBar.HPBarCreateSprite(ResourceLoader.GetForegroundImage());
-		EnemyHPBar.mg = EnemyHPBar.HPBarCreateSprite(ResourceLoader.GetMiddlegroundImage());
-		EnemyHPBar.bg = EnemyHPBar.HPBarCreateSprite(ResourceLoader.GetBackgroundImage());
+		EnemyHPBarUpdated.CompleteImage(Path.Combine(EnemyHPBarUpdated.DATA_DIR, EnemyHPBarUpdated.CurrentSkin.GetId()));
+		EnemyHPBarUpdated.bossol = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetBossOutlineImage());
+		EnemyHPBarUpdated.bossbg = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetBossBackgroundImage());
+		EnemyHPBarUpdated.bossfg = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetBossForegroundImage());
+29			EnemyHPBarUpdated.bossmg = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetBossMiddlegroundImage());
+		EnemyHPBarUpdated.ol = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetOutlineImage());
+		EnemyHPBarUpdated.fg = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetForegroundImage());
+		EnemyHPBarUpdated.mg = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetMiddlegroundImage());
+		EnemyHPBarUpdated.bg = EnemyHPBarUpdated.HPBarCreateSprite(ResourceLoader.GetBackgroundImage());
 		AnimJson.animDict.Clear();
 		AnimJson.Initdic();
 		AnimJson.LoadAllConfig();
 		AnimJson.SaveAllConfig();
 	}
 
-	internal static string[] GetSkinNameArray() => EnemyHPBar.SkinList.Select(s => HPBarList.MaxLength(s.GetName(), EnemyHPBar.globalSettings.NameLength)).ToArray();
+	internal static string[] GetSkinNameArray() => EnemyHPBarUpdated.SkinList.Select(s => HPBarList.MaxLength(s.GetName(), EnemyHPBarUpdated.globalSettings.NameLength)).ToArray();
 
 	internal static Menu PrepareMenu(ModToggleDelegates toggleDelegates) => new("EnemyHPBar", new Element[] {
 		Blueprints.CreateToggle(toggleDelegates,"HPBar Toggle","","Enabled","Disabled"),
@@ -52,8 +52,8 @@ internal static class BetterMenu {
 			Blueprints.HorizontalBoolOption(
 				"Intergration",
 				"Intergration with CK? (Make sure you install CK if you want to use it, and reset skin whenyou turn it to true), Create a folder named \"HPBar\" in your skin folder",
-				(choose) => EnemyHPBar.globalSettings.Intergration = choose,
-				() => EnemyHPBar.globalSettings.Intergration,
+				(choose) => EnemyHPBarUpdated.globalSettings.Intergration = choose,
+				() => EnemyHPBarUpdated.globalSettings.Intergration,
 				Id:"CKIntergration"
 			),
 			new MenuRow(
@@ -70,19 +70,19 @@ internal static class BetterMenu {
 			){ XDelta = 400f },
 		});
 
-	internal static void SelectedSkin(string skinId) => selectedSkin = EnemyHPBar.SkinList.FindIndex(skin => skin.GetId() == skinId);
+	internal static void SelectedSkin(string skinId) => selectedSkin = EnemyHPBarUpdated.SkinList.FindIndex(skin => skin.GetId() == skinId);
 
-	public static ISelectableSkin GetSkinById(string id) => EnemyHPBar.SkinList.Find(skin => skin.GetId() == id) ?? GetDefaultSkin();
+	public static ISelectableSkin GetSkinById(string id) => EnemyHPBarUpdated.SkinList.Find(skin => skin.GetId() == id) ?? GetDefaultSkin();
 
 	public static ISelectableSkin GetDefaultSkin() {
-		EnemyHPBar.DefaultSkin ??= GetSkinById("Default");
-		return EnemyHPBar.DefaultSkin;
+		EnemyHPBarUpdated.DefaultSkin ??= GetSkinById("Default");
+		return EnemyHPBarUpdated.DefaultSkin;
 	}
 
 	public static void SetSkinById(string id) {
 		ISelectableSkin Skin = GetSkinById(id);
-		if (EnemyHPBar.CurrentSkin.GetId() == Skin.GetId()) { return; }
+		if (EnemyHPBarUpdated.CurrentSkin.GetId() == Skin.GetId()) { return; }
 
-		EnemyHPBar.CurrentSkin = Skin;
+		EnemyHPBarUpdated.CurrentSkin = Skin;
 	}
 }
